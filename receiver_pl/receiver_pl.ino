@@ -1,7 +1,14 @@
 #include <RH_ASK.h>
 #include <SPI.h> // Not actualy used but needed to compile
 
+
+//RH_ASK(uint16_t speed = 9000, uint8_t rxPin = 11, uint8_t txPin = 12, uint8_t pttPin = 10, bool pttInverted = false);
+//RH_ASK driver(4800);
+//RH_ASK driver;
+//RH_ASK driver(4800,11,12,10,false);
 RH_ASK driver;
+
+uint16_t p1 = 0, p2 = 0;
 
 void setup()
 {
@@ -27,6 +34,14 @@ void loop()
 
       else
         digitalWrite(13, LOW);
+
+      p1 = (buf[1] << 8) | (buf[2]);  
+      p2 = (buf[3] << 8) | (buf[4]);  
+
+      Serial.print("p1: ");
+      Serial.print(p1);
+      Serial.print("   p2: ");
+      Serial.println(p2);
 
       // Message with a good checksum received, dump it.
       //driver.printBuffer("Got:", buf, buflen);
